@@ -7,6 +7,11 @@
 * LICENSE:     BSD 3-clause (see LICENSE file)
 ************************************************************/
 
+$root = realpath(dirname(__FILE__));
+  
+include_once(realpath($root.'/../config/config.php'));
+include_once(realpath($root.'/../lib/logging.php'));
+
 function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_group) {
 
     // define attributes to keep
