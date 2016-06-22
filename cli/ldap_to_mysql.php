@@ -5,8 +5,10 @@
   include_once(realpath($root.'/../config/config.php'));
   include_once(realpath($root.'/../lib/logging.php'));
   
+  $logger = new logger
+  
   echo "\n\r\n\r";
-  echo $db_rw_user;
+  $logger->debug("testing");
   echo "\n\r\n\r";
   
 ?>
