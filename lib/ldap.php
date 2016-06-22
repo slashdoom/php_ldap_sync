@@ -35,7 +35,7 @@
     }
     
  	  // build up ldap query
- 	  $ldap_query = "(&(objectClass=user)(objectCategory=person))(memberOf=CN=".$search_group.",".$ldap_dn.")";
+ 	  $ldap_query = "(&(objectClass=user)(objectCategory=person))(memberOf=cn=\28".$search_group."\29,".$ldap_dn.")";
 
     // run ldap search
     $ldap_search_stat = ldap_search($ldap_conn_stat,$ldap_dn,$ldap_query);
