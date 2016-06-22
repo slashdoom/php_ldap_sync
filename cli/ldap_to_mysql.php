@@ -4,7 +4,7 @@
   
   //include_once($root."../config/config.php");
   echo "\n\r\";
-  echo realpath($root."../config/config.php");
+  echo realpath($root & "../config/config.php");
   echo "\n\r\";
   
 ?>
