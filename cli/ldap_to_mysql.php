@@ -8,7 +8,7 @@
   $logger = new logger;
   
   echo "\n\r\n\r";
-  $logger->debug("testing");
+  $logger->info("testing");
   echo "\n\r\n\r";
   
 ?>
