@@ -22,7 +22,7 @@
     $ldap_conn_stat = ldap_connect($ldap_fqdn,$ldap_port);
     if ($ldap_conn_stat === FALSE) {
       // could not connet
-      $logging->error("could not connect to ldap server, check domain settings");
+      //$logging->error("could not connect to ldap server, check domain settings");
       return false;
     }
     
@@ -30,7 +30,7 @@
     $ldap_bind_stat = ldap_bind($ldap_conn_stat,$ldap_user,$ldap_pass);
     if ($ldap_bind_stat === FALSE) {
       // could not bind ldap user
-      $logging->error("could not bind to ldap server, check user settings");
+      //$logging->error("could not bind to ldap server, check user settings");
       return false;
     }
     
@@ -41,7 +41,7 @@
     $ldap_search_stat = ldap_search($ldap_conn_stat,$ldap_dn,$ldap_query);
     if ($ldap_search_stat === FALSE) {
       // ldap search failed
-      $logging->error("ldap search failed, check query info");
+      //$logging->error("ldap search failed, check query info");
       return false;
     }
     
