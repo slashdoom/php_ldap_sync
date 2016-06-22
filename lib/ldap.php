@@ -14,7 +14,7 @@
       "samaccountname",
       "distinguishedname",
       "userprincipalname",
-      "useraccountcontrol"
+      "useraccountcontrol",
       "mail"
     );
  
