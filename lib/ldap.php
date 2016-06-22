@@ -39,7 +39,7 @@
     echo $ldap_query;
 
     // run ldap search
-    $ldap_search_stat = ldap_search($ldap_conn_stat,$ldap_dn,$ldap_query);
+    $ldap_search_stat = ldap_search($ldap_conn_stat,$ldap_dn,$ldap_query,$attributes);
     if ($ldap_search_stat === FALSE) {
       // ldap search failed
       //$logging->error("ldap search failed, check query info");
