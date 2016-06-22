@@ -9,8 +9,6 @@
 
 function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_group) {
 
-  $ldap_logger = new logger(realpath($root.'/../log/_ldap.log'),'debug');
-
   // define attributes to keep
   $attributes = array(
     "userprincipalname",
@@ -23,12 +21,12 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
     $ldap_conn_stat = ldap_connect($ldap_fqdn,$ldap_port);
     if ($ldap_conn_stat === FALSE) {
       // could not connet
-      $ldap_logger->error("could not connect to ldap server, check domain settings");
+      $ogger->error("could not connect to ldap server, check domain settings");
       return false;
     }
     
     // bind as ldap_user
-    $ldap_logger->debug("connecting to ldap ".$ldap_fqdn.",".$ldap_port);
+    $logger->debug("connecting to ldap ".$ldap_fqdn.",".$ldap_port);
     ldap_set_option($ldap_conn_stat,LDAP_OPT_PROTOCOL_VERSION,3);
     $ldap_bind_stat = ldap_bind($ldap_conn_stat,$ldap_user,$ldap_pass);
     if ($ldap_bind_stat === FALSE) {
