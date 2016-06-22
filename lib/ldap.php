@@ -76,7 +76,8 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
         return "ldap attribute search failed, check query info";
       }
       $member_attr = ldap_get_entries($ldap_conn_stat,$member_result_stat);
-      $member_result = array_merge($member_result,$member_attr);
+      print_r($member_attr);
+      //$member_result = array_merge($member_result,$member_attr);
     }
 
 }
