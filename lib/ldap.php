@@ -70,14 +70,19 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
     ldap_control_paged_result($ldap_conn_stat,1);
 
     foreach($ldap_output as $member_dn) {
-      print_r($member_dn);
-      //$member_result_stat = ldap_search($ldap_conn_stat,$member_dn,'cn=*',$attributes);
-      //if ($member_result_stat === FALSE) {
+      $member_result_stat = ldap_search($ldap_conn_stat,$member_dn,'cn=*',$attributes);
+      if ($member_result_stat === FALSE) {
         // ldap search failed
-      //  return "ldap attribute search failed, check query info";
-      //}
-      //$member_attr = ldap_get_entries($ldap_conn_stat,$member_result_stat);
-      //print_r($member_attr);
+        return "ldap attribute search failed, check query info";
+      }
+      $member_attr = ldap_get_entries($ldap_conn_stat,$member_result_stat);
+      // remove count header element
+      array_shift($member_attr[0]['samaccountname']);
+      array_shift($member_attr[0]['distinguishedname']);
+      array_shift($member_attr[0]['userprincipalname']);
+      array_shift($member_attr[0]['useraccountcontrol']);
+      array_shift($member_attr[0]['mail']);
+      print_r($member_attr);
       //$member_result = array_merge($member_result,$member_attr);
     }
 
