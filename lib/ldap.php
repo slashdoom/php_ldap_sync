@@ -67,6 +67,7 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
 
     // disable pagination
     $member_attr = array();
+    $member_result = array();
     ldap_control_paged_result($ldap_conn_stat,1);
 
     foreach($ldap_output as $member_dn) {
@@ -82,8 +83,7 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
       array_shift($member_attr[0]['userprincipalname']);
       array_shift($member_attr[0]['useraccountcontrol']);
       array_shift($member_attr[0]['mail']);
-      print_r($member_attr);
-      //$member_result = array_merge($member_result,$member_attr);
+      $member_result = array_merge($member_result,$member_attr);
     }
 
 }
