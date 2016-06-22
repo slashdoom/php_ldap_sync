@@ -4,6 +4,7 @@
   
   include_once(realpath($root.'/../config/config.php'));
   include_once(realpath($root.'/../lib/logging.php'));
+  include_once(realpath($root.'/../lib/ldap.php'));
   
   $logger = new logger(realpath($root.'/../log/_default.log'),'debug');
   
