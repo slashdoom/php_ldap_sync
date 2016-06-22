@@ -7,16 +7,17 @@
 * LICENSE:     BSD 3-clause (see LICENSE file)
 ************************************************************/
 
-include_once(realpath($root.'/../config/config.php'));
-include_once(realpath($root.'/../lib/logging.php'));
-
 function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_group) {
-
-  echo realpath($root.'/../log/_ldap.log');
-  echo $logging_level;
 
   // enable logging
   $root = realpath(dirname(__FILE__));
+  
+  include_once(realpath($root.'/../config/config.php'));
+  include_once(realpath($root.'/../lib/logging.php'));
+  
+  echo realpath($root.'/../log/_ldap.log');
+  echo $logging_level;
+  
   $logger = new logger(realpath($root.'/../log/_ldap.log'),$logging_level);
 
   // define attributes to keep
