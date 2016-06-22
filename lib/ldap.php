@@ -7,7 +7,16 @@
 * LICENSE:     BSD 3-clause (see LICENSE file)
 ************************************************************/
 
-function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_dn,$ldap_user,$ldap_pass,$search_group) {
+function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_group) {
+
+    // define attributes to keep
+    $attributes = array(
+      "samaccountname",
+      "distinguishedname",
+      "userprincipalname",
+      "useraccountcontrol",
+      "mail"
+    );
 
     // connect to ldap
     $ldap_conn_stat = ldap_connect($ldap_fqdn,$ldap_port);
@@ -52,10 +61,22 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_dn,$ldap_user,$ldap_pass,$
       // Append to output
       $ldap_output = array_merge($ldap_output,$members[0]['member']);
 		
-       // Retrieve pagination information/position
-       ldap_control_paged_result_response($ldap_conn_stat,$ldap_search_stat,$counter);
-       } while($counter !== null && $counter != "");
+      // Retrieve pagination information/position
+      ldap_control_paged_result_response($ldap_conn_stat,$ldap_search_stat,$counter);
+    } while($counter !== null && $counter != "");
 
-	// return member list
-	return $ldap_output;
+    // disable pagination
+    $member_attr = array();
+    ldap_control_paged_result($ldap_conn_stat,1);
+
+    foreach($member_dn in $ldap_output) {
+      $member_result_stat = ldap_search($ldap_conn_stat,$member_dn,'cn=*',$attributes)
+      if ($member_result_stat === FALSE) {
+        // ldap search failed
+        return "ldap attribute search failed, check query info";
+      }
+      $member_attr = ldap_get_entries($ldap_conn_stat,$member_result);
+      $member_result = array_merge($member_result,$member_attr);
+    }
+
 }
