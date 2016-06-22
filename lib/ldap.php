@@ -39,7 +39,7 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_dn,$ldap_user,$ldap_pass,$
         return "ldap search failed, check query info";
       }
 
-      $members = ldap_get_entries($ldap_conn_stat,$results);
+      $members = ldap_get_entries($ldap_conn_stat,$ldap_search_stat);
 
       // no members found
       if(!isset($members[0]['member'])) {
