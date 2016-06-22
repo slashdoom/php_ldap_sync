@@ -11,7 +11,6 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
 
   // setup logging
   $logger = new logger($log_file,$log_level);
-  }
 
   // define attributes to keep
   $attributes = array(
