@@ -7,7 +7,7 @@
   $db_ro_user  = 'vopt_ro';
   $db_ro_pass  = '';
   $db_host     = 'localhost';
-  $db_name     = 'openvopt';
+  $db_name     = 'raddb';
   // Mail settings
   $smtp_server = 'smtp.example.com';
   $smtp_port   = '25';
