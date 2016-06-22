@@ -17,11 +17,11 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
   );
 
     // connect to ldap
-    $ldap_logger->debug("connecting to ldap ".$ldap_fqdn.",".$ldap_port);
+    $logger->debug("connecting to ldap ".$ldap_fqdn.",".$ldap_port);
     $ldap_conn_stat = ldap_connect($ldap_fqdn,$ldap_port);
     if ($ldap_conn_stat === FALSE) {
       // could not connet
-      $ogger->error("could not connect to ldap server, check domain settings");
+      $logger->error("could not connect to ldap server, check domain settings");
       return false;
     }
     
@@ -31,7 +31,7 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
     $ldap_bind_stat = ldap_bind($ldap_conn_stat,$ldap_user,$ldap_pass);
     if ($ldap_bind_stat === FALSE) {
       // could not bind ldap user
-      $ldap_logger->error("could not bind to ldap server, check user settings");
+      $logger->error("could not bind to ldap server, check user settings");
       return false;
     }
 
@@ -44,11 +44,11 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
       ldap_control_paged_result($ldap_conn_stat,$ldap_pagesize,true,$counter);
 
       // run ldap search
-      $ldap_logger->debug("searching ldap for ".$search_group);
+      $logger->debug("searching ldap for ".$search_group);
       $ldap_search_stat = ldap_search($ldap_conn_stat,$search_group,'cn=*',array('member'));
       if ($ldap_search_stat === FALSE) {
         // ldap search failed
-        $ldap_logger->error("ldap search failed, check query info");
+        $logger->error("ldap search failed, check query info");
         return false;
       }
 
@@ -56,7 +56,7 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
 
       // no members found
       if(!isset($members[0]['member'])) {
-      	$ldap_logger->warning("ldap search completed but no members found");
+      	$logger->warning("ldap search completed but no members found");
         return "";
       }
 
@@ -79,7 +79,7 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
       $member_result_stat = ldap_search($ldap_conn_stat,$member_dn,'cn=*',$attributes);
       if ($member_result_stat === FALSE) {
         // ldap search failed
-        $ldap_logger->error("ldap attribute search failed, check query info");
+        $logger->error("ldap attribute search failed, check query info");
         return false;
       }
       $member_attr = ldap_get_entries($ldap_conn_stat,$member_result_stat);
@@ -88,7 +88,7 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
       $member_result[] = array('username'=>$member_attr[0]['userprincipalname'][0],'disabled'=>substr(decbin($member_attr[0]['useraccountcontrol'][0]),-2,1),'mail'=>$member_attr[0]['mail'][0]);
     }
   // close LDAP connection
-  $ldap_logger->debug("ldap connection closed");
+  $logger->debug("ldap connection closed");
   ldap_unbind($ldap_conn_stat);
   
   // return results array
