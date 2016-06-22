@@ -18,7 +18,7 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
   echo realpath($root.'/../config/config.php');
   echo $logging_level;
   
-  $logger = new logger(realpath($root.'/../log/_ldap.log'),$logging_level);
+  $ldap_logger = new logger(realpath($root.'/../log/_ldap.log'),$logging_level);
 
   // define attributes to keep
   $attributes = array(
@@ -28,21 +28,21 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
   );
 
     // connect to ldap
-    $logger->debug("connecting to ldap ".$ldap_fqdn.",".$ldap_port);
+    $ldap_logger->debug("connecting to ldap ".$ldap_fqdn.",".$ldap_port);
     $ldap_conn_stat = ldap_connect($ldap_fqdn,$ldap_port);
     if ($ldap_conn_stat === FALSE) {
       // could not connet
-      $logger->error("could not connect to ldap server, check domain settings");
+      $ldap_logger->error("could not connect to ldap server, check domain settings");
       return false;
     }
     
     // bind as ldap_user
-    $logger->debug("connecting to ldap ".$ldap_fqdn.",".$ldap_port);
+    $ldap_logger->debug("connecting to ldap ".$ldap_fqdn.",".$ldap_port);
     ldap_set_option($ldap_conn_stat,LDAP_OPT_PROTOCOL_VERSION,3);
     $ldap_bind_stat = ldap_bind($ldap_conn_stat,$ldap_user,$ldap_pass);
     if ($ldap_bind_stat === FALSE) {
       // could not bind ldap user
-      $logger->error("could not bind to ldap server, check user settings");
+      $ldap_logger->error("could not bind to ldap server, check user settings");
       return false;
     }
 
@@ -55,11 +55,11 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
       ldap_control_paged_result($ldap_conn_stat,$ldap_pagesize,true,$counter);
 
       // run ldap search
-      $logger->debug("searching ldap for ".$search_group);
+      $ldap_logger->debug("searching ldap for ".$search_group);
       $ldap_search_stat = ldap_search($ldap_conn_stat,$search_group,'cn=*',array('member'));
       if ($ldap_search_stat === FALSE) {
         // ldap search failed
-        $logger->error("ldap search failed, check query info");
+        $ldap_logger->error("ldap search failed, check query info");
         return false;
       }
 
@@ -67,7 +67,7 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
 
       // no members found
       if(!isset($members[0]['member'])) {
-      	$logger->warning("ldap search completed but no members found");
+      	$ldap_logger->warning("ldap search completed but no members found");
         return "";
       }
 
@@ -90,7 +90,7 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
       $member_result_stat = ldap_search($ldap_conn_stat,$member_dn,'cn=*',$attributes);
       if ($member_result_stat === FALSE) {
         // ldap search failed
-        $logger->error("ldap attribute search failed, check query info");
+        $ldap_logger->error("ldap attribute search failed, check query info");
         return false;
       }
       $member_attr = ldap_get_entries($ldap_conn_stat,$member_result_stat);
@@ -99,7 +99,7 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
       $member_result[] = array('username'=>$member_attr[0]['userprincipalname'][0],'disabled'=>substr(decbin($member_attr[0]['useraccountcontrol'][0]),-2,1),'mail'=>$member_attr[0]['mail'][0]);
     }
   // close LDAP connection
-  $logger->debug("ldap connection closed");
+  $ldap_logger->debug("ldap connection closed");
   ldap_unbind($ldap_conn_stat);
   
   // return results array
