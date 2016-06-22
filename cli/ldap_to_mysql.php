@@ -7,8 +7,8 @@
   
   $logger = new logger(realpath($root.'/../log/_default.log'),'debug');
   
-  echo "\n\r\n\r";
-  $logger->info("testing");
-  echo "\n\r\n\r";
+  echo "\n\rStarting sync...";
+  $logger->debug("Starting sync...");
+  
   
 ?>
