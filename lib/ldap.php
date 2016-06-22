@@ -9,7 +9,7 @@
 
 function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_group,$logging=TRUE,$log_level='',$log_file='') {
 
-  if $logging {
+  if ($logging === TRUE) {
     $logger = new logger(realpath($root.'/../log/_default.log'),'debug');
   }
   else {
