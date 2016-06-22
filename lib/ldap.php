@@ -57,5 +57,5 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_dn,$ldap_user,$ldap_pass,$
        } while($counter !== null && $counter != "");
 
 	// return member list
-	return $output;
+	return $ldap_output;
 }
