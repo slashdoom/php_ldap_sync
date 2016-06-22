@@ -56,15 +56,14 @@
     // build up output array
     foreach($ldap_results as $u) {
       foreach($keep as $x) {
-      	// check for specified attributes
-    		if(isset($u[$x][0])) {
-    		  $ldap_output[$i][$x] = $attr_val;
-    		}
-      	else {
-      	  $attr_val = NULL;
-    		}
-        // append specified attributes to output array
-        
+        // check for specified attributes
+        if(isset($u[$x][0])) {
+          // append specified attributes to output array
+          $ldap_output[$i][$x] = $attr_val;
+        }
+        else {
+          $attr_val = NULL;
+        }
       }
       $i++;
     }
