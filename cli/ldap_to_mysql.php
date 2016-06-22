@@ -4,7 +4,7 @@
   
   //include_once($root."../config/config.php");
   echo "\n\r\";
-  echo $root."/../config/config.php");
+  echo $root."/../config/config.php";
   echo "\n\r\";
   
 ?>
