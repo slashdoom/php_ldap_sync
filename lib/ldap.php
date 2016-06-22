@@ -76,7 +76,7 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
       }
       $member_attr = ldap_get_entries($ldap_conn_stat,$member_result_stat);
       //print_r($member_attr);
-      echo $member_attr[0][userprincipalname][0];
+      echo $member_attr[0]['userprincipalname'][0];
       // remove count header elements
       //array_shift($member_attr[0]['userprincipalname']);
       //array_shift($member_attr[0]['useraccountcontrol']);
