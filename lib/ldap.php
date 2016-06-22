@@ -58,10 +58,13 @@
       foreach($keep as $x) {
       	// check for specified attributes
     		if(isset($u[$x][0])) {
-      	  else $attr_val = NULL;
+    		  $ldap_output[$i][$x] = $attr_val;
+    		}
+      	else {
+      	  $attr_val = NULL;
     		}
         // append specified attributes to output array
-        $ldap_output[$i][$x] = $attr_val;
+        
       }
       $i++;
     }
