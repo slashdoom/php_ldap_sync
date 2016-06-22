@@ -15,7 +15,7 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
   include_once(realpath($root.'/../config/config.php'));
   include_once(realpath($root.'/../lib/logging.php'));
   
-  echo realpath($root.'/../log/_ldap.log');
+  echo $root;
   echo $logging_level;
   
   $logger = new logger(realpath($root.'/../log/_ldap.log'),$logging_level);
