@@ -29,32 +29,32 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_dn,$ldap_user,$ldap_pass,$
     $ldap_pagesize = 1000;
     $counter = "";
     do {
-		// paginated results
-		ldap_control_paged_result($ldap_conn_stat,$ldap_pagesize,true,$counter);
+      // paginated results
+      ldap_control_paged_result($ldap_conn_stat,$ldap_pagesize,true,$counter);
 
-    // run ldap search
-    $ldap_search_stat = ldap_search($ldap_conn_stat,$ldap_dn,'cn=*',array('member'));
-    if ($ldap_search_stat === FALSE) {
-      // ldap search failed
-      return "ldap search failed, check query info";
-    }
+      // run ldap search
+      $ldap_search_stat = ldap_search($ldap_conn_stat,$search_group,'cn=*',array('member'));
+      if ($ldap_search_stat === FALSE) {
+        // ldap search failed
+        return "ldap search failed, check query info";
+      }
 
-		$members = ldap_get_entries($ldap_conn_stat,$results);
+      $members = ldap_get_entries($ldap_conn_stat,$results);
 
-		// no members found
-		if(!isset($members[0]['member'])) {
-		  return false;
-		}
+      // no members found
+      if(!isset($members[0]['member'])) {
+        return "search completed but no members found";
+      }
 
-		// remove count header element
-		array_shift($members[0]['member']);
+      // remove count header element
+      array_shift($members[0]['member']);
 
-		// Append to output
-		$ldap_output = array_merge($ldap_output,$members[0]['member']);
+      // Append to output
+      $ldap_output = array_merge($ldap_output,$members[0]['member']);
 		
-		// Retrieve pagination information/position
-		ldap_control_paged_result_response(ldap_conn_stat,$ldap_results,$counter);
-	} while($counter !== null && $counter != "");
+       // Retrieve pagination information/position
+       ldap_control_paged_result_response(ldap_conn_stat,$ldap_results,$counter);
+       } while($counter !== null && $counter != "");
 
 	// return member list
 	return $output;
