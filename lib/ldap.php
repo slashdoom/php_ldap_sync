@@ -15,7 +15,7 @@ include_once(realpath($root.'/../lib/logging.php'));
 function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_group) {
 
   // enable logging
-  $logger = new logger(realpath($root.'/../log/_default.log'),'debug');
+  $logger = new logger(realpath($root.'/../log/_ldap.log'),$logging_level);
 
   // define attributes to keep
   $attributes = array(
@@ -25,6 +25,7 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
   );
 
     // connect to ldap
+    $logger->debug("connecting to ldap ".$ldap_fqdn.",".$ldap_port)
     $ldap_conn_stat = ldap_connect($ldap_fqdn,$ldap_port);
     if ($ldap_conn_stat === FALSE) {
       // could not connet
@@ -33,6 +34,7 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
     }
     
     // bind as ldap_user
+    $logger->debug("connecting to ldap ".$ldap_fqdn.",".$ldap_port)
     ldap_set_option($ldap_conn_stat,LDAP_OPT_PROTOCOL_VERSION,3);
     $ldap_bind_stat = ldap_bind($ldap_conn_stat,$ldap_user,$ldap_pass);
     if ($ldap_bind_stat === FALSE) {
@@ -50,17 +52,20 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
       ldap_control_paged_result($ldap_conn_stat,$ldap_pagesize,true,$counter);
 
       // run ldap search
+      $logger->debug("searching ldap for ".$search_group)
       $ldap_search_stat = ldap_search($ldap_conn_stat,$search_group,'cn=*',array('member'));
       if ($ldap_search_stat === FALSE) {
         // ldap search failed
-        return "ldap search failed, check query info";
+        $logger->error("ldap search failed, check query info");
+        return false;
       }
 
       $members = ldap_get_entries($ldap_conn_stat,$ldap_search_stat);
 
       // no members found
       if(!isset($members[0]['member'])) {
-        return "search completed but no members found";
+      	$logger->warning("ldap search completed but no members found");
+        return "";
       }
 
       // remove count header element
@@ -76,14 +81,14 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
     // disable pagination
     $member_attr = array();
     $member_result = array();
-    $member_clean = array();
     ldap_control_paged_result($ldap_conn_stat,1);
 
     foreach($ldap_output as $member_dn) {
       $member_result_stat = ldap_search($ldap_conn_stat,$member_dn,'cn=*',$attributes);
       if ($member_result_stat === FALSE) {
         // ldap search failed
-        return "ldap attribute search failed, check query info";
+        $logger->error("ldap attribute search failed, check query info");
+        return false;
       }
       $member_attr = ldap_get_entries($ldap_conn_stat,$member_result_stat);
       //print_r($member_attr);
@@ -92,10 +97,10 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
       echo $member_attr[0]['mail'][0]."\r\n";
       
       // combine result attributes
-      $member_clean = array('username'=>$member_attr[0]['userprincipalname'][0],'disabled'=>substr(decbin($member_attr[0]['useraccountcontrol'][0]),-2,1),'mail'=>$member_attr[0]['mail'][0]);
-      $member_result[] = $member_clean;
+      $member_result[] = array('username'=>$member_attr[0]['userprincipalname'][0],'disabled'=>substr(decbin($member_attr[0]['useraccountcontrol'][0]),-2,1),'mail'=>$member_attr[0]['mail'][0])
     }
   // close LDAP connection
+  $logger->debug("ldap connection closed");
   ldap_unbind($ldap_conn_stat);
   
   // return results array
