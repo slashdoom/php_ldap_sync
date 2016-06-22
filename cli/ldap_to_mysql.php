@@ -5,7 +5,7 @@
   include_once(realpath($root.'/../config/config.php'));
   include_once(realpath($root.'/../lib/logging.php'));
   
-  $logger = new logger;
+  $logger = new logger(realpath($root.'/../log/_default.log'),"4");
   
   echo "\n\r\n\r";
   $logger->info("testing");
