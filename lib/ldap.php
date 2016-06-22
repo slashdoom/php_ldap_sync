@@ -12,8 +12,8 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
   // enable logging
   $root = realpath(dirname(__FILE__));
   
-  require_once(realpath($root.'/../config/config.php'));
-  require_once(realpath($root.'/../lib/logging.php'));
+  require(realpath($root.'/../config/config.php'));
+  require(realpath($root.'/../lib/logging.php'));
   
   echo realpath($root.'/../config/config.php');
   echo $logging_level;
