@@ -58,8 +58,6 @@
       foreach($keep as $x) {
       	// check for specified attributes
     		if(isset($u[$x][0])) {
-      		$attr_val = $u[$x][0]
-      	}
       	  else $attr_val = NULL;
     		}
         // append specified attributes to output array
