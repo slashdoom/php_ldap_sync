@@ -2,6 +2,6 @@
 
   $root = realpath(dirname(__FILE__));
   
-  include_once("../config/config.php");
+  include_once($root."../config/config.php");
   
 ?>
