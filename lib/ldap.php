@@ -53,7 +53,7 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_dn,$ldap_user,$ldap_pass,$
       $ldap_output = array_merge($ldap_output,$members[0]['member']);
 		
        // Retrieve pagination information/position
-       ldap_control_paged_result_response(ldap_conn_stat,$ldap_results,$counter);
+       ldap_control_paged_result_response($ldap_conn_stat,$ldap_search_stat,$counter);
        } while($counter !== null && $counter != "");
 
 	// return member list
