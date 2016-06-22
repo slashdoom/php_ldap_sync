@@ -27,7 +27,7 @@
     }
     
     // bind as ldap_user
-    $ldap_bind_stat($ldap_conn_stat,$ldap_user,$ldap_pass);
+    $ldap_bind_stat = ldap_bind($ldap_conn_stat,$ldap_user,$ldap_pass);
     if ($ldap_bind_stat === FALSE) {
       // could not bind ldap user
       $logging->error("could not bind to ldap server, check user settings");
