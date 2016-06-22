@@ -13,7 +13,7 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
   $root = realpath(dirname(__FILE__));
   
   require_once(realpath($root.'/../config/config.php'));
-  include_once(realpath($root.'/../lib/logging.php'));
+  require_once(realpath($root.'/../lib/logging.php'));
   
   echo realpath($root.'/../config/config.php');
   echo $logging_level;
