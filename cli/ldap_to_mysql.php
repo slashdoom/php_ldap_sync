@@ -12,6 +12,6 @@
   echo "\n\rStarting sync...\n\r";
   $logger->debug("Starting sync...");
   
-  print_r(ldap_get_members($ldap_fqdn,$ldap_port,$ldap_search_user,$ldap_search_pass,"CN=wifi_byod_access,OU=groups,OU=org,DC=ad,DC=slashdoom,DC=lan",$logging_level,realpath($root.'/../log/_ldap.log')));
+  print_r(array_column(ldap_get_members($ldap_fqdn,$ldap_port,$ldap_search_user,$ldap_search_pass,"CN=wifi_byod_access,OU=groups,OU=org,DC=ad,DC=slashdoom,DC=lan",$logging_level,realpath($root.'/../log/_ldap.log'))),'username');
 
 ?>
