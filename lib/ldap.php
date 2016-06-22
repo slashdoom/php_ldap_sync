@@ -97,7 +97,7 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
       echo $member_attr[0]['mail'][0]."\r\n";
       
       // combine result attributes
-      $member_result[] = array('username'=>$member_attr[0]['userprincipalname'][0],'disabled'=>substr(decbin($member_attr[0]['useraccountcontrol'][0]),-2,1),'mail'=>$member_attr[0]['mail'][0])
+      $member_result[] = array('username'=>$member_attr[0]['userprincipalname'][0],'disabled'=>substr(decbin($member_attr[0]['useraccountcontrol'][0]),-2,1),'mail'=>$member_attr[0]['mail'][0]);
     }
   // close LDAP connection
   $logger->debug("ldap connection closed");
