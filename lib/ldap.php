@@ -81,7 +81,7 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
       echo $member_attr[0]['mail'][0]."\r\n";
       print_r(array($member_attr[0]['userprincipalname'][0],decbin($member_attr[0]['useraccountcontrol'][0]),$member_attr[0]['mail'][0]));
       // combine result attributes
-      $member_result = array_merge($member_result,$member_attr);
+      //$member_result = array_merge($member_result,$member_attr);
     }
   // close LDAP connection
   ldap_unbind($ldap_conn_stat);
