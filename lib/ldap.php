@@ -69,7 +69,7 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
     $member_attr = array();
     ldap_control_paged_result($ldap_conn_stat,1);
 
-    foreach($member_dn in $ldap_output) {
+    foreach($member_dn as $ldap_output) {
       $member_result_stat = ldap_search($ldap_conn_stat,$member_dn,'cn=*',$attributes)
       if ($member_result_stat === FALSE) {
         // ldap search failed
