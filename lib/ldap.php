@@ -9,6 +9,8 @@
 
 function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_group,$log_level,$log_file) {
 
+  require_once(realpath($root.'/../lib/logging.php'));
+
   // setup logging
   $logger = new logger($log_file,$log_level);
 
