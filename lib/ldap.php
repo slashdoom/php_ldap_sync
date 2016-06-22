@@ -25,7 +25,7 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
   );
 
     // connect to ldap
-    $logger->debug("connecting to ldap ".$ldap_fqdn.",".$ldap_port)
+    $logger->debug("connecting to ldap ".$ldap_fqdn.",".$ldap_port);
     $ldap_conn_stat = ldap_connect($ldap_fqdn,$ldap_port);
     if ($ldap_conn_stat === FALSE) {
       // could not connet
@@ -34,7 +34,7 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
     }
     
     // bind as ldap_user
-    $logger->debug("connecting to ldap ".$ldap_fqdn.",".$ldap_port)
+    $logger->debug("connecting to ldap ".$ldap_fqdn.",".$ldap_port);
     ldap_set_option($ldap_conn_stat,LDAP_OPT_PROTOCOL_VERSION,3);
     $ldap_bind_stat = ldap_bind($ldap_conn_stat,$ldap_user,$ldap_pass);
     if ($ldap_bind_stat === FALSE) {
@@ -52,7 +52,7 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
       ldap_control_paged_result($ldap_conn_stat,$ldap_pagesize,true,$counter);
 
       // run ldap search
-      $logger->debug("searching ldap for ".$search_group)
+      $logger->debug("searching ldap for ".$search_group);
       $ldap_search_stat = ldap_search($ldap_conn_stat,$search_group,'cn=*',array('member'));
       if ($ldap_search_stat === FALSE) {
         // ldap search failed
