@@ -66,6 +66,7 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
     // disable pagination
     $member_attr = array();
     $member_result = array();
+    $member_clean = array();
     ldap_control_paged_result($ldap_conn_stat,1);
 
     foreach($ldap_output as $member_dn) {
@@ -81,7 +82,8 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
       echo $member_attr[0]['mail'][0]."\r\n";
       
       // combine result attributes
-      $member_result = array_merge($member_result,array($member_attr[0]['userprincipalname'][0],substr(decbin($member_attr[0]['useraccountcontrol'][0]),-2,1),$member_attr[0]['mail'][0]));
+      $member_clean = array($member_attr[0]['userprincipalname'][0],substr(decbin($member_attr[0]['useraccountcontrol'][0]),-2,1),$member_attr[0]['mail'][0]);
+      $member_result = array_merge($member_result,$member_clean);
     }
   // close LDAP connection
   ldap_unbind($ldap_conn_stat);
