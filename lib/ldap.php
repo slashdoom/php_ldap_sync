@@ -17,7 +17,7 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_dn,$ldap_user,$ldap_pass,$
     }
     
     // bind as ldap_user
-    ldap_set_option($mydap,LDAP_OPT_PROTOCOL_VERSION,3);
+    ldap_set_option($ldap_conn_stat,LDAP_OPT_PROTOCOL_VERSION,3);
     $ldap_bind_stat = ldap_bind($ldap_conn_stat,$ldap_user,$ldap_pass);
     if ($ldap_bind_stat === FALSE) {
       // could not bind ldap user
