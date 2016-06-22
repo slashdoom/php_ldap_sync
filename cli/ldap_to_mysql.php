@@ -2,9 +2,9 @@
 
   $root = realpath(dirname(__FILE__));
   
-  require(realpath($root.'/../config/config.php'));
-  require(realpath($root.'/../lib/logging.php'));
-  require(realpath($root.'/../lib/ldap.php'));
+  require_once(realpath($root.'/../config/config.php'));
+  require_once(realpath($root.'/../lib/logging.php'));
+  require_once(realpath($root.'/../lib/ldap.php'));
   
   $logger = new logger(realpath($root.'/../log/_default.log'),$logging_level);
   
