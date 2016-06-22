@@ -11,8 +11,6 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
 
     // define attributes to keep
     $attributes = array(
-      "samaccountname",
-      "distinguishedname",
       "userprincipalname",
       "useraccountcontrol",
       "mail"
@@ -77,14 +75,13 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
         return "ldap attribute search failed, check query info";
       }
       $member_attr = ldap_get_entries($ldap_conn_stat,$member_result_stat);
+      print_r($member_attr);
       // remove count header elements
-      array_shift($member_attr[0]['samaccountname']);
-      array_shift($member_attr[0]['distinguishedname']);
-      array_shift($member_attr[0]['userprincipalname']);
-      array_shift($member_attr[0]['useraccountcontrol']);
-      array_shift($member_attr[0]['mail']);
+      //array_shift($member_attr[0]['userprincipalname']);
+      //array_shift($member_attr[0]['useraccountcontrol']);
+      //array_shift($member_attr[0]['mail']);
       // combine result attributes
-      $member_result = array_merge($member_result,$member_attr);
+      //$member_result = array_merge($member_result,$member_attr);
     }
   // close LDAP connection
   ldap_unbind($ldap_conn_stat);
