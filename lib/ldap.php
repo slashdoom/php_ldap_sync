@@ -14,18 +14,22 @@ include_once(realpath($root.'/../lib/logging.php'));
 
 function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_group) {
 
-    // define attributes to keep
-    $attributes = array(
-      "userprincipalname",
-      "useraccountcontrol",
-      "mail"
-    );
+  // enable logging
+  $logger = new logger(realpath($root.'/../log/_default.log'),'debug');
+
+  // define attributes to keep
+  $attributes = array(
+    "userprincipalname",
+    "useraccountcontrol",
+    "mail"
+  );
 
     // connect to ldap
     $ldap_conn_stat = ldap_connect($ldap_fqdn,$ldap_port);
     if ($ldap_conn_stat === FALSE) {
       // could not connet
-      return "could not connect to ldap server, check domain settings";
+      $logger->error("could not connect to ldap server, check domain settings");
+      return false;
     }
     
     // bind as ldap_user
@@ -33,7 +37,8 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
     $ldap_bind_stat = ldap_bind($ldap_conn_stat,$ldap_user,$ldap_pass);
     if ($ldap_bind_stat === FALSE) {
       // could not bind ldap user
-      return "could not bind to ldap server, check user settings";
+      $logger->error("could not bind to ldap server, check user settings");
+      return false;
     }
 
     // pagination to overcome 1000 entry limit
