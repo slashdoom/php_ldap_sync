@@ -7,7 +7,14 @@
 * LICENSE:     BSD 3-clause (see LICENSE file)
 ************************************************************/
 
-function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_group) {
+function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_group,$logging=TRUE,$log_level='',$log_file='') {
+
+  if $logging {
+    $logger = new logger(realpath($root.'/../log/_default.log'),'debug');
+  }
+  else {
+    $logger = '';
+  }
 
   // define attributes to keep
   $attributes = array(
