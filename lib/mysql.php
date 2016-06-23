@@ -32,9 +32,7 @@ function mysql_get_users($db_host, $db_user, $db_pass, $db_name,$log_level,$log_
   $db_sql_query="SELECT * FROM radcheck";
   $db_query=mysqli_query($db_conn_stat,$db_sql_query);
   
-  $db_result_set=mysqli_fetch_array($db_query);
-
-  while($row=mysqli_fetch_array($db_result_set)) {
+  while($row=mysqli_fetch_array($db_query)) {
     $dc_results[]=$row['username'];
   }
   
