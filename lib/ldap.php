@@ -95,10 +95,10 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
     if (substr(decbin($member_attr[0]['useraccountcontrol'][0]),-2,1) <> TRUE) {
       // combine result attributes of enabled accounts
       $member_result[] = array('username'=>$member_attr[0]['userprincipalname'][0],'mail'=>$member_attr[0]['mail'][0]);
-      $logger->debug($member_attr[0]['userprincipalname'][0]." added");
+      $logger->debug($member_attr[0]['userprincipalname'][0]." in group");
     }
     else {
-      $logger->debug($member_attr[0]['userprincipalname'][0]." disabled and not added");
+      $logger->debug($member_attr[0]['userprincipalname'][0]." in group but disabled");
     }
   }
   // close LDAP connection
