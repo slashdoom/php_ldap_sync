@@ -27,12 +27,17 @@ function mysql_get_users($db_host, $db_user, $db_pass, $db_name,$log_level,$log_
     return false;
   }
 
-  $dc_results_array = array();
+  $dc_results = array();
 
-  $db_query="SELECT * FROM radcheck";
-  $db_results=mysqli_query($db_conn_stat,$db_query);
-  $dc_results_array=mysqli_fetch_array($db_results);
+  $db_sql_query="SELECT * FROM radcheck";
+  $db_query=mysqli_query($db_conn_stat,$db_sql_query);
+  
+  $dc_result_set=mysqli_fetch_array($db_query);
 
-  print_r($dc_results_array);
+  while($row=mysqli_fetch_array($db_result_set)) {
+    $dc_results[]=$row['username'];
+  }
+  
+  print_r($dc_results);
 
 }
