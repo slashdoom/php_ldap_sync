@@ -1,7 +1,7 @@
 <?php
 /************************************************************
 * FILENAME:    ldap.php
-* DESCRIPTION: ldap functions for php
+* DESCRIPTION: ldap functions
 * 
 * AUTHOR:      Patrick K. Ryon (Slashdoom)
 * LICENSE:     BSD 3-clause (see LICENSE file)
