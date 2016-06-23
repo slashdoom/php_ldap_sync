@@ -31,6 +31,6 @@ function mysql_get_users($db_host, $db_user, $db_pass, $db_name,$log_level,$log_
 
   $db_query="SELECT * FROM radcheck";
   $db_results=mysqli_query($db_conn_stat,$db_query);
-  $dc_results_array=mysqli_fetch_array($db_results)
+  $dc_results_array=mysqli_fetch_array($db_results);
 
 }
