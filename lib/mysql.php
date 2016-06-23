@@ -36,7 +36,7 @@ function mysql_get_users($db_host, $db_user, $db_pass, $db_name,$log_level,$log_
   // build array from query
   while($row=mysqli_fetch_array($db_query)) {
     $dc_results[]=$row['username'];
-    $logger->debug($row['username']." found in db);
+    $logger->debug($row['username']." found in db");
   }
   
   return $dc_results;
