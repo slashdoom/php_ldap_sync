@@ -18,6 +18,7 @@ function mysql_get_users($db_host, $db_user, $db_pass, $db_name,$log_level,$log_
   $logger = new logger($log_file,$log_level);
   
   // connect to SQL server
+  $logger->debug("connecting to mysql ".$db_host.",".$db_name);
   $db_conn_stat = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
  
   // check SQL connection
@@ -25,5 +26,11 @@ function mysql_get_users($db_host, $db_user, $db_pass, $db_name,$log_level,$log_
     $logger->error("failed to connect to mysql: ".mysqli_connect_error());
     return false;
   }
+
+  $dc_results_array = array();
+
+  $db_query="SELECT * FROM radcheck";
+  $db_results=mysqli_query($db_conn_stat,$db_query);
+  $dc_results_array=mysqli_fetch_array($db_results)
 
 }
