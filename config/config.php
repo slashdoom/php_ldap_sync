@@ -18,9 +18,7 @@
   // LDAP settings
   $ldap_fqdn        = 'ldap.example.com';
   $ldap_port        = 3268;
-  $ldap_search_base = 'dc=ldap,dc=example,dc=com';
+  $ldap_user_group  = 'cn=group,ou=corp,dc=example,dc=com';
   $ldap_search_user = 'ldap_browse@ldap.example.com';
   $ldap_search_pass = '';
-  $ldap_rw_group    = 'vopt admins';
-  $ldap_ro_group    = 'vopt viewers';
 ?>
