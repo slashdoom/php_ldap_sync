@@ -34,7 +34,7 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
   }
     
   // bind as ldap_user
-  $logger->debug("connecting to ldap ".$ldap_fqdn.",".$ldap_port);
+  $logger->debug("binding to ldap as ".$ldap_user);
   ldap_set_option($ldap_conn_stat,LDAP_OPT_PROTOCOL_VERSION,3);
   $ldap_bind_stat = ldap_bind($ldap_conn_stat,$ldap_user,$ldap_pass);
   if ($ldap_bind_stat === FALSE) {
