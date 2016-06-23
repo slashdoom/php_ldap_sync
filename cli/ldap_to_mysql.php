@@ -25,6 +25,8 @@
   $diff_add = array_diff(array_column($ldap_users,'username'), $mysql_users);
   $diff_rem = array_diff($mysql_users, array_column($ldap_users,'username'));
 
+  echo " \r\nldap raw: \r\n";
+  print_r($ldap_users);
   echo " \r\nldap: \r\n";
   print_r(array_column($ldap_users,'username'));
   echo " \r\nmysql: \r\n";
