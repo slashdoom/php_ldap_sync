@@ -23,5 +23,8 @@
   $mysql_users = mysql_get_users($db_host,$db_rw_user,$db_rw_pass,$db_name,$logging_level,realpath($root.'/../log/_ldap.log'));
 
   $diff_add = array_diff(array_column($ldap_users,'username'), $mysql_users);
- 
+  $diff_rem = array_diff($mysql_users, array_column($ldap_users,'username'));
+
+  print_r($diff_add);
+  print_r($diff_rem);
 ?>
