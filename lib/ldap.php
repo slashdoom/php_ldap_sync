@@ -93,7 +93,7 @@ function ldap_get_members($ldap_fqdn,$ldap_port,$ldap_user,$ldap_pass,$search_gr
 
     // combine result attributes
     // check for disabled account
-    if !(substr(decbin($member_attr[0]['useraccountcontrol'][0]),-2,1)) {
+    if (substr(decbin($member_attr[0]['useraccountcontrol'][0]),-2,1) <> TRUE) {
       $member_result[] = array('username'=>$member_attr[0]['userprincipalname'][0],'mail'=>$member_attr[0]['mail'][0]);
     }
   }
