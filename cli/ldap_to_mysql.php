@@ -6,6 +6,7 @@
   require_once(realpath($root.'/../lib/logging.php'));
   require_once(realpath($root.'/../lib/ldap.php'));
   require_once(realpath($root.'/../lib/mysql.php'));
+  require_once(realpath($root.'/../lib/misc.php'));
   
   touch(realpath($root.'/../log/_default.log'));
   $logger = new logger(realpath($root.'/../log/_default.log'),$logging_level);
