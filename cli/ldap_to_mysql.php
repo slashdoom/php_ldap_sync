@@ -36,9 +36,13 @@
   echo " \r\nrem: \r\n";
   print_r($diff_rem);
   
-  echo "\r\nStarting removals...\r\n";
+  echo "\r\nstarting removals...\r\n";
+  $logger->debug("starting sync...");
+  
   foreach ($diff_rem as $rem_user) {
-    echo mysql_remove_user($db_host,$db_rw_user,$db_rw_pass,$db_name,$rem_user,$logging_level,realpath($root.'/../log/_mysql.log'));
+    $logger->debug("starting removals...");
+    $logger->debug("removing user ".$rem_user);
+    mysql_remove_user($db_host,$db_rw_user,$db_rw_pass,$db_name,$rem_user,$logging_level,realpath($root.'/../log/_mysql.log'));
   }
   
 ?>
