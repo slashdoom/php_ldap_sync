@@ -35,4 +35,9 @@
   print_r($diff_add);
   echo " \r\nrem: \r\n";
   print_r($diff_rem);
+  
+  echo "\r\nStarting removals..."
+  foreach ($diff_rem as $rem_user) {
+    echo $rem_user
+  }
 ?>
