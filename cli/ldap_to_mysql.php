@@ -45,4 +45,11 @@
     mysql_remove_user($db_host,$db_rw_user,$db_rw_pass,$db_name,$rem_user,$logging_level,realpath($root.'/../log/_mysql.log'));
   }
   
+  foreach ($diff_add as $add_user) {
+    $logger->debug("starting adds...");
+    $logger->debug("adding user ".$add_user);
+    $add_user_pass = 
+    mysql_add_user($db_host,$db_rw_user,$db_rw_pass,$db_name,$add_user,$pass,$mail,$logging_level,realpath($root.'/../log/_mysql.log'));
+  }
+
 ?>
