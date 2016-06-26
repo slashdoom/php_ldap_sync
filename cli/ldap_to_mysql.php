@@ -38,7 +38,7 @@
   
   echo "\r\nStarting removals...\r\n";
   foreach ($diff_rem as $rem_user) {
-    echo mysql_remove_user($db_host,$db_rw_user,$db_rw_pass,$db_name,$rem_user,$log_level,realpath($root.'/../log/_mysql.log'));
+    echo mysql_remove_user($db_host,$db_rw_user,$db_rw_pass,$db_name,$rem_user,$logging_level,realpath($root.'/../log/_mysql.log'));
   }
   
 ?>
