@@ -44,7 +44,38 @@
 
   }
 
-  function mysql_add_user() {
+  function mysql_add_user($db_host,$db_user,$db_pass,$db_name,$username,$pass,$mail,$log_level,$log_file) {
+    
+    $root = realpath(dirname(__FILE__));
+ 
+    require_once(realpath($root.'/../lib/logging.php'));
+
+    // setup logging
+    touch($log_file);
+    $logger = new logger($log_file,$log_level);
+  
+    // connect to SQL server
+    $logger->debug("connecting to mysql ".$db_host.",".$db_name);
+    $db_conn_stat = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
+ 
+    // check SQL connection
+    if (mysqli_connect_errno()) {
+      $logger->error("failed to connect to mysql: ".mysqli_connect_error());
+      return false;
+    }
+    
+    $db_sql_query = "INSERT INTO radcheck (username, attribute, op, value, mail)
+                     VALUES (".$username.", 'Cleartext-Password', ':=', .$pass.",".$mail.")";
+
+    if ($db_conn_stat->query($db_sql_query) === TRUE) {
+      $logger->debug($username." successfully create from mysql database ".$db_name);
+    } else {
+      $logger->error("error creating mysql record: " . $db_conn_stat->error);
+      $db_conn_stat->close();
+    }
+
+    $conn->close();
+    
   }
   
   function mysql_remove_user($db_host,$db_user,$db_pass,$db_name,$username,$log_level,$log_file) {
