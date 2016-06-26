@@ -39,5 +39,6 @@
   echo "\r\nStarting removals..."
   foreach ($diff_rem as $rem_user) {
     echo $rem_user
+    #mysql_remove_user($db_host,$db_user,$db_pass,$db_name,$username,$log_level,$log_file)
   }
 ?>
