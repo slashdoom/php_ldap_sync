@@ -74,7 +74,7 @@
       $db_conn_stat->close();
     }
 
-    $conn->close();
+    $db_conn_stat->close();
     
   }
   
