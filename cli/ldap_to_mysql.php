@@ -50,6 +50,8 @@
     $logger->debug("starting adds...");
     $logger->debug("adding user ".$add_user);
     $add_user_pass = random_str($pass_len, $pass_char);
+    $key = array_search($add_user, array_column($ldap_users, 'username'));
+    echo $key;
     mysql_add_user($db_host,$db_rw_user,$db_rw_pass,$db_name,$add_user,$add_user_pass,'none@example.com',$logging_level,realpath($root.'/../log/_mysql.log'));
   }
 
