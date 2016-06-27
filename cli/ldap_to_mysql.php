@@ -41,8 +41,6 @@
   echo " \r\nrem: \r\n";
   print_r($diff_rem);
   
-  $logger->debug("starting sync...");
-
   echo "\r\nstarting removals...\r\n";
   foreach ($diff_rem as $rem_user) {
     // logging only
