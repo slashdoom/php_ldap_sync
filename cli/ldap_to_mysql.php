@@ -17,14 +17,19 @@
   echo "\n\rstarting sync...\n\r";
   $logger->debug("starting sync...");
   
+  // get all users in group from ldap
   $ldap_users = ldap_get_members(
       $ldap_fqdn,$ldap_port,$ldap_search_user,$ldap_search_pass,$ldap_user_group,$logging_level,realpath($root.'/../log/_ldap.log')
                                 );
+  // get all user in mysql db
   $mysql_users = mysql_get_users($db_host,$db_rw_user,$db_rw_pass,$db_name,$logging_level,realpath($root.'/../log/_mysql.log'));
 
+  // get users in ldap but not mysql
   $diff_add = array_diff(array_column($ldap_users,'username'), $mysql_users);
+  // get users in mysql but not ldap
   $diff_rem = array_diff($mysql_users, array_column($ldap_users,'username'));
 
+  // debug only
   echo " \r\nldap raw: \r\n";
   print_r($ldap_users);
   echo " \r\nldap: \r\n";
