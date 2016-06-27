@@ -1,5 +1,4 @@
 <?php
-
 /************************************************************
 * FILENAME:    misc.php
 * DESCRIPTION: simple misc functions
