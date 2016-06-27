@@ -65,7 +65,7 @@
     }
     
     $db_sql_query = "INSERT INTO radcheck (username, attribute, op, value, mail)
-                     VALUES (".$username.", 'Cleartext-Password', ':=', '".$pass."','".$mail."')";
+                     VALUES ('".$username."','Cleartext-Password',':=','".$pass."','".$mail."')";
 
     if ($db_conn_stat->query($db_sql_query) === TRUE) {
       $logger->debug($username." successfully create from mysql database ".$db_name);
