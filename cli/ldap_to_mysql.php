@@ -36,15 +36,16 @@
   echo " \r\nrem: \r\n";
   print_r($diff_rem);
   
-  echo "\r\nstarting removals...\r\n";
   $logger->debug("starting sync...");
-  
+
+  echo "\r\nstarting removals...\r\n";
   foreach ($diff_rem as $rem_user) {
     $logger->debug("starting removals...");
     $logger->debug("removing user ".$rem_user);
     mysql_remove_user($db_host,$db_rw_user,$db_rw_pass,$db_name,$rem_user,$logging_level,realpath($root.'/../log/_mysql.log'));
   }
-  
+
+  echo "\r\nstarting adds...\r\n";
   foreach ($diff_add as $add_user) {
     $logger->debug("starting adds...");
     $logger->debug("adding user ".$add_user);
