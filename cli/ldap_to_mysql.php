@@ -1,3 +1,4 @@
+#!/usr/bin/php
 <?php
 
   $root = realpath(dirname(__FILE__));
