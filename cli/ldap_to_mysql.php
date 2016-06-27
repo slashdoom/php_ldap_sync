@@ -34,18 +34,6 @@
   // get users in mysql but not ldap
   $diff_rem = array_diff($mysql_users, array_column($ldap_users,'username'));
 
-  // debug only
-  echo " \r\nldap raw: \r\n";
-  print_r($ldap_users);
-  echo " \r\nldap: \r\n";
-  print_r(array_column($ldap_users,'username'));
-  echo " \r\nmysql: \r\n";
-  print_r($mysql_users);
-  echo " \r\nadd: \r\n";
-  print_r($diff_add);
-  echo " \r\nrem: \r\n";
-  print_r($diff_rem);
-  
   echo "\r\nstarting removals...\r\n";
   foreach ($diff_rem as $rem_user) {
     // logging only
