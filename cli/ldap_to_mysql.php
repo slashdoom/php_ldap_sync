@@ -40,20 +40,29 @@
 
   echo "\r\nstarting removals...\r\n";
   foreach ($diff_rem as $rem_user) {
+    // logging only
     $logger->debug("starting removals...");
     $logger->debug("removing user ".$rem_user);
+    
+    // remove user from mysql db
     mysql_remove_user($db_host,$db_rw_user,$db_rw_pass,$db_name,$rem_user,$logging_level,realpath($root.'/../log/_mysql.log'));
   }
 
   echo "\r\nstarting adds...\r\n";
   foreach ($diff_add as $add_user) {
+    // logging only
     $logger->debug("starting adds...");
     $logger->debug("adding user ".$add_user);
+    
+    // generate 'random' password
     $add_user_pass = random_str($pass_len, $pass_char);
+    
+    // get e-mail address from ldap array
     $key = array_search($add_user, array_column($ldap_users, 'username'));
-    echo "\r\n".$key;
-    echo "\r\n".$ldap_users[$key]['mail'];
-    mysql_add_user($db_host,$db_rw_user,$db_rw_pass,$db_name,$add_user,$add_user_pass,'none@example.com',$logging_level,realpath($root.'/../log/_mysql.log'));
+    $add_user_mail = $ldap_users[$key]['mail'];
+    
+    // add user to mysql db
+    mysql_add_user($db_host,$db_rw_user,$db_rw_pass,$db_name,$add_user,$add_user_pass,$add_user_mail,$logging_level,realpath($root.'/../log/_mysql.log'));
   }
 
 ?>
