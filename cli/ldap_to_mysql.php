@@ -29,17 +29,17 @@
   $logger->debug("reading mysql users...");
   $mysql_users = mysql_get_users($db_host,$db_rw_user,$db_rw_pass,$db_name,$logging_level,realpath($root.'/../log/_mysql.log'));
 
-  // get users in ldap but not mysql
-  echo "diff ldap against mysql users...\n\r";
-  $logger->debug("diff ldap against mysql users...");
+  // get users in ldap but not mysql (adds)
+  echo "running diff of ldap against mysql users...\n\r";
+  $logger->debug("running diff of ldap against mysql users...");
   $diff_add = array_diff(array_column($ldap_users,'username'), $mysql_users);
-  echo "diff mysql against ldap users...\n\r";
-  $logger->debug("diff mysql against ldap users...");
-  // get users in mysql but not ldap
+  // get users in mysql but not ldap (removes)
+  echo "running diff of mysql against ldap users...\n\r";
+  $logger->debug("running diff of mysql against ldap users...");
   $diff_rem = array_diff($mysql_users, array_column($ldap_users,'username'));
 
-  echo "\r\nstarting removals...\r\n";
-  $logger->debug("starting removals...");
+  echo "\r\nstarting user removals...\r\n";
+  $logger->debug("starting user removals...");
   foreach ($diff_rem as $rem_user) {
     echo "removing user ".$rem_user."\r\n";
     $logger->debug("removing user ".$rem_user);
@@ -48,8 +48,8 @@
     mysql_remove_user($db_host,$db_rw_user,$db_rw_pass,$db_name,$rem_user,$logging_level,realpath($root.'/../log/_mysql.log'));
   }
 
-  echo "\r\nstarting any adds...\r\n";
-  $logger->debug("starting adds...");
+  echo "\r\nstarting user adds...\r\n";
+  $logger->debug("starting user adds...");
   foreach ($diff_add as $add_user) {
     echo "adding user ".$add_user."\r\n";
     $logger->debug("adding user ".$add_user);
