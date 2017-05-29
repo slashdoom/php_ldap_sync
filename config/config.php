@@ -14,7 +14,7 @@
   $smtp_user   = '';
   $smtp_pass   = '';
   $smtp_to     = 'person@example.com';
-  $smtp_from   = 'OpenVoPT@example.com';
+  $smtp_from   = 'person@example.com';
   // LDAP settings
   $ldap_fqdn        = 'ldap.example.com';
   $ldap_port        = 3268;
