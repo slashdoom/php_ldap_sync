@@ -1,1 +1,1 @@
-# freeradius_ldap_sync
+# php_ldap_sync
